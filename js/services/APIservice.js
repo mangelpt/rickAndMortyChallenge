@@ -12,7 +12,3 @@ export const fetchAPI = async (endpoint) => {
   }
 
 }
-
-
-
-console.log(BASE_URL)
