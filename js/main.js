@@ -113,5 +113,11 @@ const showResults = async () => {
 }
 
 
-const results = await showResults()
-console.log(test);
+const startTotalTime = performance.now();
+const results = await showResults();
+console.log(JSON.stringify(results));
+const endTotalTime = performance.now();
+
+const totalMilliseconds = endTotalTime - startTotalTime;
+const totalTimeInSeconds = (totalMilliseconds / 1000) % 60;
+console.log(totalTimeInSeconds);
