@@ -59,16 +59,26 @@ const getEpisodeLocations = async (resource, id) => {
 
 const showResults = async () => {
   // Char counter
+  const startTimeCharCounter = performance.now();
   const episodeCount = await countLetters("episode", "e");
   const locationCount = await countLetters("location", "l");
   const characterCount = await countLetters("character", "c");
-  // Episode locations
+  const endTimeCharCounter = performance.now();
+
+  const milliseconds = endTimeCharCounter - startTimeCharCounter;
+  const TimeCharCounterInSeconds = (milliseconds / 1000) % 60
+
+  const startTimeLocations = performance.now();
   const [name, episode, locations] = await getEpisodeLocations("episode", 1);
+  const endTimeLocations = performance.now();
+  const millisecondsLocations = endTimeLocations - startTimeLocations;
+  const TimeLocationsInSeconds = (millisecondsLocations / 1000) % 60;
+
   return [
     {
       "exercise_name": "Char counter",
-      "time": "2s 545.573272ms",
-      "in_time": true,
+      "time": TimeCharCounterInSeconds,
+      "in_time": TimeCharCounterInSeconds < 3,
       "results": [
         {
           "char": "l",
@@ -89,8 +99,8 @@ const showResults = async () => {
     },
     {
       "exercise_name": "Episode locations",
-      "time": "1s 721.975698ms",
-      "in_time": true,
+      "time": TimeLocationsInSeconds,
+      "in_time": TimeLocationsInSeconds < 3,
       "results": [
         {
           "name": name,
@@ -103,5 +113,5 @@ const showResults = async () => {
 }
 
 
-const test = await showResults()
-console.log(JSON.stringify(test));
+const results = await showResults()
+console.log(test);
