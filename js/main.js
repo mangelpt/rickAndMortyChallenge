@@ -4,7 +4,7 @@ import { BASE_URL } from "../js/constants.js";
 const getRequests = async (endpoint) => {
   const requests = [];
   const allData = await fetchAPI(endpoint);
-  const pages = allData.info.pages
+  const pages = allData.info.pages;
   for (let i = 1; i <= pages; i++) {
     requests.push(fetch(`${BASE_URL}${endpoint}/?page=` + i));
   }
@@ -12,7 +12,7 @@ const getRequests = async (endpoint) => {
 }
 
 const getAllData = async (endpoint) => {
-  const allData = []
+  const allData = [];
   const requests = await getRequests(endpoint);
   const response = await Promise.all(requests);
   const data = await Promise.all(response.map(res => res.json()));
@@ -27,23 +27,18 @@ const getAllNames = async (endpoint) => {
   return names;
 }
 
+const countLetters = async (endpoint, letter) => {
+  const names = await getAllNames(endpoint);
+  let counter = 0;
+  names.forEach((name) => {
+    const regex = new RegExp(letter, "gi");
+    const letters = name.match(regex)?.length ?? 0;
+    counter += letters;
+  })
+  return counter;
+}
 
-const names = await getAllNames("episode")
 
-console.log(names);
 
-// async function fetchMetaData() {
-//   let allData = [];
-//   let morePagesAvailable = true;
-//   let currentPage = 0;
-
-//   while (morePagesAvailable) {
-//     currentPage++;
-//     const response = await fetch(`http://api.dhsprogram.com/rest/dhs/data?page=${currentPage}`)
-//     let { data, total_pages } = await response.json();
-//     data.forEach(e => allData.unshift(e));
-//     morePagesAvailable = currentPage < total_pages;
-//   }
-
-//   return allData;
-// }
+const test = await countLetters("episode", "e");
+console.log(test);
