@@ -76,7 +76,7 @@ export const showResults = async () => {
   const TimeCharCounterInSeconds = (milliseconds / 1000) % 60
   // Episode locations
   const startTimeLocations = performance.now();
-  const [name, episode, locations] = await getEpisodeLocations("episode", 1);
+  const [name, episode, locations] = await getEpisodeLocations("episode", 5);
   const endTimeLocations = performance.now();
   const millisecondsLocations = endTimeLocations - startTimeLocations;
   const TimeLocationsInSeconds = (millisecondsLocations / 1000) % 60;
@@ -120,11 +120,11 @@ export const showResults = async () => {
 }
 
 
-// const startTotalTime = performance.now();
-// const results = await showResults();
-// console.log(JSON.stringify(results));
-// const endTotalTime = performance.now();
+const startTotalTime = performance.now();
+const results = await showResults();
+console.log(JSON.stringify(results));
+const endTotalTime = performance.now();
 
-// const totalMilliseconds = endTotalTime - startTotalTime;
-// const totalTimeInSeconds = (totalMilliseconds / 1000) % 60;
-// console.log(totalTimeInSeconds);
+const totalMilliseconds = endTotalTime - startTotalTime;
+const totalTimeInSeconds = (totalMilliseconds / 1000) % 60;
+console.log(totalTimeInSeconds);
