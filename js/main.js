@@ -38,12 +38,39 @@ const countLetters = async (resource, letter) => {
   return counter;
 }
 
+const getLocations = async (requests) => {
+  const allLocations = [];
+  const response = await Promise.all(requests);
+  const data = await Promise.all(response.map(res => res.json()));
+  data.forEach(location => allLocations.push(location.location.name));
+  return [...new Set(allLocations)];
+}
+
+const getEpisodeLocations = async (resource, id) => {
+  const characterRequests = []
+  const episodes = await fetchAPI(`${resource}/${id}`);
+  const characters = episodes.characters;
+  const name = episodes.name;
+  const episode = episodes.episode;
+  characters.forEach((characterR) => characterRequests.push(fetch(characterR)));
+  const locations = await getLocations(characterRequests)
+  return [name, episode, locations]
+}
+
+const test = await getEpisodeLocations("episode", 1)
+
+
 
 
 const showResults = async () => {
+  // Char counter
   const episodeCount = await countLetters("episode", "e")
   const locationCount = await countLetters("location", "l");
   const characterCount = await countLetters("character", "c");
+  // Episode locations
+  const [name, episode, locations] = await getEpisodeLocations("episode", 1)
+
+
   return [
     {
       "exercise_name": "Char counter",
@@ -73,13 +100,9 @@ const showResults = async () => {
       "in_time": true,
       "results": [
         {
-          "name": "Pickle Rick",
-          "episode": "S03E03",
-          "locations": [
-            "Earth (C-137)",
-            "Earth (Replacement Dimension)",
-            "unknown"
-          ]
+          "name": name,
+          "episode": episode,
+          "locations": locations
         }
       ]
     }
