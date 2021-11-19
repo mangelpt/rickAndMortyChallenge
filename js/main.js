@@ -57,20 +57,13 @@ const getEpisodeLocations = async (resource, id) => {
   return [name, episode, locations]
 }
 
-const test = await getEpisodeLocations("episode", 1)
-
-
-
-
 const showResults = async () => {
   // Char counter
-  const episodeCount = await countLetters("episode", "e")
+  const episodeCount = await countLetters("episode", "e");
   const locationCount = await countLetters("location", "l");
   const characterCount = await countLetters("character", "c");
   // Episode locations
-  const [name, episode, locations] = await getEpisodeLocations("episode", 1)
-
-
+  const [name, episode, locations] = await getEpisodeLocations("episode", 1);
   return [
     {
       "exercise_name": "Char counter",
@@ -110,7 +103,5 @@ const showResults = async () => {
 }
 
 
-// const test = await showResults()
-
-// const test = await countLetters("episode", "e");
-// console.log(test);
+const test = await showResults()
+console.log(JSON.stringify(test));
