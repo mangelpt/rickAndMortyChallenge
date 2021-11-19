@@ -2,16 +2,14 @@ import { fetchAPI } from "./services/APIservice.js"
 import { BASE_URL } from "../js/constants.js";
 
 const getRequests = async (endpoint) => {
+  const requests = [];
   const allData = await fetchAPI(endpoint);
   const pages = allData.info.pages
-  const requests = [];
-
   for (let i = 1; i <= pages; i++) {
     requests.push(fetch(`${BASE_URL}${endpoint}/?page=` + i));
   }
   return requests;
 }
-
 
 const getAllData = async (endpoint) => {
   const allData = []
@@ -22,10 +20,17 @@ const getAllData = async (endpoint) => {
   return allData;
 }
 
-const test = await getAllData("episode");
-console.log(test);
+const getAllNames = async (endpoint) => {
+  const names = [];
+  const arrayOfData = await getAllData(endpoint);
+  arrayOfData.forEach((object) => names.push(object.name));
+  return names;
+}
 
 
+const names = await getAllNames("episode")
+
+console.log(names);
 
 // async function fetchMetaData() {
 //   let allData = [];
