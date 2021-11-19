@@ -13,10 +13,14 @@ export const getRequests = async (resource) => {
 
 export const getAllData = async (resource) => {
   const allData = [];
-  const requests = await getRequests(resource);
-  const response = await Promise.all(requests);
-  const data = await Promise.all(response.map(res => res.json()));
-  data.forEach(object => allData.push(...object.results));
+  try {
+    const requests = await getRequests(resource);
+    const response = await Promise.all(requests);
+    const data = await Promise.all(response.map(res => res.json()));
+    data.forEach(object => allData.push(...object.results));
+  } catch (error) {
+    console.log(error.message);
+  }
   return allData;
 }
 
@@ -40,9 +44,13 @@ export const countLetters = async (resource, letter) => {
 
 export const getLocations = async (requests) => {
   const allLocations = [];
-  const response = await Promise.all(requests);
-  const data = await Promise.all(response.map(res => res.json()));
-  data.forEach(location => allLocations.push(location.location.name));
+  try {
+    const response = await Promise.all(requests);
+    const data = await Promise.all(response.map(res => res.json()));
+    data.forEach(location => allLocations.push(location.location.name));
+  } catch (error) {
+    console.log(error.message);
+  }
   return [...new Set(allLocations)];
 }
 

@@ -1,7 +1,12 @@
-import { countLetters } from "../js/main.js"
+import { expect } from "@jest/globals";
+import { getAllData } from "../js/main.js"
 
-test('check is a response is a number > 0 ', async () => {
+test('check if data  are not empty', async () => {
+  const result = await getAllData("character");
+  expect(result).not.toBe(0)
+})
 
-  const result = await countLetters("episode", "e")
-
+test('check if data are not null ', async () => {
+  const result = await getAllData("character");
+  expect(result).not.toBeNull()
 })
