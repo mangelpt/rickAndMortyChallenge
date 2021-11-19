@@ -64,10 +64,9 @@ const showResults = async () => {
   const locationCount = await countLetters("location", "l");
   const characterCount = await countLetters("character", "c");
   const endTimeCharCounter = performance.now();
-
   const milliseconds = endTimeCharCounter - startTimeCharCounter;
   const TimeCharCounterInSeconds = (milliseconds / 1000) % 60
-
+  // Episode locations
   const startTimeLocations = performance.now();
   const [name, episode, locations] = await getEpisodeLocations("episode", 1);
   const endTimeLocations = performance.now();
