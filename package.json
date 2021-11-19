@@ -1,0 +1,22 @@
+{
+  "name": "rickandmortychallenge",
+  "version": "1.0.0",
+  "description": "rick and morty challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mangelpt/rickAndMortyChallenge.git"
+  },
+  "author": "Miguel Angel P",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mangelpt/rickAndMortyChallenge/issues"
+  },
+  "homepage": "https://github.com/mangelpt/rickAndMortyChallenge#readme",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
+}

@@ -1,7 +1,7 @@
 import { fetchAPI } from "./services/APIservice.js"
 import { BASE_URL } from "../js/constants.js";
 
-const getRequests = async (resource) => {
+export const getRequests = async (resource) => {
   const requests = [];
   const allData = await fetchAPI(resource);
   const pages = allData.info.pages;
@@ -11,7 +11,7 @@ const getRequests = async (resource) => {
   return requests;
 }
 
-const getAllData = async (resource) => {
+export const getAllData = async (resource) => {
   const allData = [];
   const requests = await getRequests(resource);
   const response = await Promise.all(requests);
@@ -20,14 +20,14 @@ const getAllData = async (resource) => {
   return allData;
 }
 
-const getAllNames = async (resource) => {
+export const getAllNames = async (resource) => {
   const names = [];
   const arrayOfData = await getAllData(resource);
   arrayOfData.forEach((object) => names.push(object.name));
   return names;
 }
 
-const countLetters = async (resource, letter) => {
+export const countLetters = async (resource, letter) => {
   const names = await getAllNames(resource);
   let counter = 0;
   names.forEach((name) => {
@@ -38,7 +38,7 @@ const countLetters = async (resource, letter) => {
   return counter;
 }
 
-const getLocations = async (requests) => {
+export const getLocations = async (requests) => {
   const allLocations = [];
   const response = await Promise.all(requests);
   const data = await Promise.all(response.map(res => res.json()));
@@ -46,7 +46,7 @@ const getLocations = async (requests) => {
   return [...new Set(allLocations)];
 }
 
-const getEpisodeLocations = async (resource, id) => {
+export const getEpisodeLocations = async (resource, id) => {
   const characterRequests = []
   const episodes = await fetchAPI(`${resource}/${id}`);
   const characters = episodes.characters;
@@ -57,7 +57,7 @@ const getEpisodeLocations = async (resource, id) => {
   return [name, episode, locations]
 }
 
-const showResults = async () => {
+export const showResults = async () => {
   // Char counter
   const startTimeCharCounter = performance.now();
   const episodeCount = await countLetters("episode", "e");
@@ -112,11 +112,11 @@ const showResults = async () => {
 }
 
 
-const startTotalTime = performance.now();
-const results = await showResults();
-console.log(JSON.stringify(results));
-const endTotalTime = performance.now();
+// const startTotalTime = performance.now();
+// const results = await showResults();
+// console.log(JSON.stringify(results));
+// const endTotalTime = performance.now();
 
-const totalMilliseconds = endTotalTime - startTotalTime;
-const totalTimeInSeconds = (totalMilliseconds / 1000) % 60;
-console.log(totalTimeInSeconds);
+// const totalMilliseconds = endTotalTime - startTotalTime;
+// const totalTimeInSeconds = (totalMilliseconds / 1000) % 60;
+// console.log(totalTimeInSeconds);
