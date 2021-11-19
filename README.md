@@ -1,2 +1,2 @@
 # rickAndMortyChallenge
-rick and morty challenge
+rick and morty challenge for Chipax
